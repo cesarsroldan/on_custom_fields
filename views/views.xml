@@ -1,0 +1,23 @@
+<odoo>
+    <data>
+    </data>
+</odoo><odoo>
+    <data>
+        <record id="view_sale_view_order_form_inherit" model="ir.ui.view">
+            <field name="name">sale.view.order.form.inherit</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree/field[@name='price_unit']" position="replace">
+                    <field name="is_admin" invisible="1"/>
+                    <field name="price_unit"
+                           attrs="{'readonly': ['|', ('qty_invoiced', '&gt;', 0), ('is_admin', '=', False)]}"/>
+                </xpath>
+                <xpath expr="//tree/field[@name='discount']" position="attributes">
+                    <attribute name="attrs">{'readonly': ['|', ('is_admin', '=', False)]}</attribute>
+                    <attribute name="force_save">True</attribute>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>
